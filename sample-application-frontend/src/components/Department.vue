@@ -24,7 +24,7 @@
       <a-col span="24">
         <a-form layout="inline">
           <a-form-item>
-            <a-input placeholder="first name" v-model="firstname"></a-input>
+            <a-input placeholder="first nae" v-model="firstname"></a-input>
           </a-form-item>
           <a-form-item>
             <a-input placeholder="last name" v-model="lastname"></a-input>
