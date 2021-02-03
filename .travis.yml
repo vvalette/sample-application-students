@@ -3,7 +3,8 @@ git :
 
 stages :
  - "Build and Test"
- - "Package"
+ - name: "Package"
+    if: branch = dev
  
 jobs :
  include :
@@ -49,3 +50,5 @@ addons :
  sonarcloud :
   organization : "vvalette"
   token : "$SONARCLOUD_TOKEN"
+
+
