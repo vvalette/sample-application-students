@@ -27,19 +27,19 @@ jobs :
     - cd sample-application-backend
    script :
     - echo "Docker build ..."
-    - docker build -t vvalette/backend .
+    - docker build -t vvalette/backend:0.1 .
     - echo "Docker login ..."
     - echo "Docker push ..."
-    - docker push vvalette/backend .
+    - docker push vvalette/backend:0.1 .
  - stage : "Package"
    before_script :
     - cd sample-application-frontend
    script :
     - echo "Docker build ..."
-    - docker build -t vvalette/frontend .
+    - docker build -t vvalette/frontend:0.1 .
     - echo "Docker login ..."
     - echo "Docker push ..."
-    - docker push vvalette/backend .
+    - docker push vvalette/frontend:0.1 .
     
 cache :
  directories :
