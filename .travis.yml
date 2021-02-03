@@ -3,9 +3,8 @@ git :
 
 stages :
  - "Build and Test"
- if: branch = dev
- - "Package"
-    
+ - name: "Package"
+   if: branch = dev
  
 jobs :
  include :
