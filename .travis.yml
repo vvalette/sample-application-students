@@ -42,7 +42,7 @@ jobs :
     - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
     - echo "Docker push ..."
     - docker push vvalette/frontend
- - stage : "Quality":
+ - stage : "Quality"
    language : java
    script :
     - mvn clean verify org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=devops-2021
