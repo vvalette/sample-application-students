@@ -29,6 +29,7 @@ jobs :
     - echo "Docker build ..."
     - docker build -t vvalette/backend .
     - echo "Docker login ..."
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
     - echo "Docker push ..."
     - docker push vvalette/backend
  - stage : "Package"
@@ -38,6 +39,7 @@ jobs :
     - echo "Docker build ..."
     - docker build -t vvalette/frontend .
     - echo "Docker login ..."
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
     - echo "Docker push ..."
     - docker push vvalette/frontend
     
