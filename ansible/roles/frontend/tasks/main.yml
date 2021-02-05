@@ -1,0 +1,8 @@
+- name: Run HHTPD
+  docker_container: 
+   name: container_httpd
+   image: vvalette/frontend
+   published_ports: 
+    - "80:80"
+   networks: 
+    - name: my_app_network

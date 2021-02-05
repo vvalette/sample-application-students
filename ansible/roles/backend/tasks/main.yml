@@ -1,0 +1,10 @@
+
+
+- name: Run backend
+  docker_container: 
+   name: backend
+   image: vvalette/backend
+   networks: 
+    - name: my_app_network
+   env: 
+     SPRING_DATASOURCE_URL: "jdbc:postgresql://database:5432/SchoolOrganisation"
