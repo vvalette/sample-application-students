@@ -1,18 +1,59 @@
-git:
- depth: 5
-jobs:
- include:
-  - stage: "Build and Test Java"
-    language: java
-    jdk: oraclejdk11
-    before_script:
-    - cd sample-application-backend	
-  - stage: "Build and Test Nodejs"
-    language: node.js
-    node_js: "12.20"
-    before_script:
+git :
+ depth : 5
+
+stages :
+ - "Build and Test"
+ - name: "Package"
+   if: branch = dev
+ - name: "Deployment "
+   if: branch = production
+ 
+jobs :
+ include :
+ - stage : "Build and Test"
+   language : java
+   jdk : oraclejdk11
+   before_script :
+    - cd sample-application-backend
+   script :
+    - mvn clean verify 
+ - stage : "Build and Test"
+   language : node.js
+   node_js : "12.20"
+   before_script :
     - cd sample-application-frontend
-cache:
- directories:
+   script :
+    - npm install 
+    - npm build
+ - stage : "Package"
+   before_script :
+    - cd sample-application-backend
+   script :
+    - docker build -t vvalette/backend .
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker push vvalette/backend
+ - stage : "Package"
+   before_script :
+    - cd sample-application-frontend
+   script :
+    - docker build -t vvalette/frontend .
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - docker push vvalette/frontend
+  - stage : "Deployment"
+   before_script :
+    - cd sample-application-frontend/ansible
+   script :
+    - ansible-playbook -i inventories/setup.yml playbook.yml
+
+cache :
+ directories :
   - "$HOME/.m2/repository"
   - "$HOME/.npm"
+  
+services :
+ - docker
+
+addons :
+ sonarcloud :
+  organization : "vvalette"
+  token : "$SONARCLOUD_TOKEN"
